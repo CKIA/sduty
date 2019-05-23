@@ -1,0 +1,5 @@
+sudo ln -s /opt/node-v11.12.0-linux-x64/bin/node /usr/local/bin/node
+sudo ln -s /opt/node-v11.12.0-linux-x64/bin/npm /usr/local/bin/npm
+sudo ln -s /opt/node-v11.12.0-linux-x64/bin/cnpm /usr/local/bin/cnpm
+sudo ln -s /opt/node-v11.12.0-linux-x64/bin/vue /usr/local/bin/vue
+sudo ln -s /opt/node-v11.12.0-linux-x64/bin/webpack /usr/local/bin/webpack

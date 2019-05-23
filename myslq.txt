@@ -1,0 +1,11 @@
+insert into mysql.user(Host,User,Password) values("%","ckia",password("ckia"));
+
+UPDATE user SET password=PASSWORD("ckia") WHERE user='root'; 
+
+
+pg数据库信息
+用户名postgres
+密码ckia
+
+
+
