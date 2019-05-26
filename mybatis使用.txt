@@ -1,0 +1,44 @@
+mybatis使用	mybatis是面向数据库的orm框架
+	$和#区别
+		$ 是明文使用，会导致sql注入问题
+		# 使用的是占位符，不会产生sql注入问题
+		
+	主键id回显
+		1. 通用回显方式	使用useGeneratedKeys=ture 和 keyProperty对应回显的id字段
+		2.	不同数据库的回显方式（使用selectKey标签）
+			mysql	设置after回显，语句SELECT LAST_INSERT_ID() AS 要回显的id对应的字段
+			oracle	一般自增的id使用序列的nextVal方法，设置before回显，在sql语句中不要再使用序列生成id，避免id跳过
+
+	缓存使用
+		一级缓存
+			springboot整合时，一级缓存失效了，大概原因时，spring配置了事务的自动提交和回滚，并自动关闭回话，一级缓存是会话级别的，会话关闭，缓存就失效了
+			建议使用SqlSessionTemplate，因为这个是线程安全的，可以由多个dao对象注入
+		执行流程
+			1. 对于某个Select Statement，根据该Statement生成key。
+			2. 判断在Local Cache中,该key是否用对应的数据存在。
+			3. 如果命中，则跳过查询数据库，继续往下走。
+			4. 如果没命中：
+			4.1  去数据库中查询数据，得到查询结果；
+			4.2  将key和查询到的结果作为key和value，放入Local Cache中。
+			4.3. 将查询结果返回；
+			5. 判断缓存级别是否为STATEMENT级别，如果是的话，清空本地缓存。
+
+		二级缓存（作用域在namesapce），增删改时会更新缓存
+			1.	开启方式：再mapper.xml文件中使用cache标签开启
+			2.	可以使用spring-cache/redis/EhcacheCache等方式
+			3.	eviction 缓存回收策略（默认LRU）
+					LRU:移除近期最少使用的对象
+					FIFO: FIRST INPUT FIRST OUT 按照进入的时间移除对象
+					SOFT: 软引用 ,移除基于垃圾回收状态和软引用规则的对象
+					WEAK :弱引用,更积极的移除基于垃圾回收状态和弱引用规则的对象
+			4.	flushInterval:刷新缓存,默认不自动刷新,可以为任意的正整数,单位是毫秒时间 ,在增删改操作的时候会刷新
+			5.	size:缓存被应用的数目,默认1024次查询的结果
+			6.	readOnly :缓存的只读属性 ,默认是false,代表缓存不能修改
+
+	批量insert
+		批量插入使用SqlSessionTemplate.getSqlSessionFactory().openSession(ExecutorType.BATCH);方法，再mapper.xml中使用foreach标签，速度比单独使用foreach标签快接近一倍
+		存在一个问题，在oracle数据库中，如果插入的数据有唯一id（序列生成）时，使用foreach插入会有问题
+
+	Mybatis一级缓存作用域是session，session commit之后缓存就失效了
+
+	Mybatis二级缓存作用域是sessionfactory，该缓存是以namespace为单位的（也就是一个Mapper.xml文件），不同namespace下的操作互不影响。

@@ -1,0 +1,20 @@
+数据库层面
+	数据库优化	完成
+	sql关键语法（关键字）	待完成
+	sql临时表	待完成
+	
+持久层框架
+	mybatis		待完成
+	jpa		待完成
+
+业务层框架
+	springmvc	待完成
+	springboot	待完成
+	springcloud	待完成
+noslq缓存框架
+	redis		待完成
+	redis		持久化方式
+消息队列框架
+	mq		待完成
+java基础		待完成
+设计模式			待完成
