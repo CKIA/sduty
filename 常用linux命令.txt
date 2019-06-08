@@ -1,0 +1,32 @@
+目录切换	cd
+日志查看	
+	cat
+		cat fileName	查看整个文件
+		cat fileName | tail -n 尾部开始（加数字展示从尾部指定行数开始）
+		cat fileName | head -n 头部开始（加数字展示从头部指定行数开始）
+
+	tac	
+		tac fileName 	和cat相反
+		tac fileName | head	查看当前文件的头部信息
+		tac fileName | tail	查看当前文件的尾部信息
+	| grep 条件		条件查询
+
+	less	查看文件
+
+	文件查看编辑
+		vim 
+
+	清除当前屏幕信息
+		clear
+
+	查看当前目录信息
+		pwd
+
+	下载文件
+		wget
+
+	curl url地址		get请求
+	curl -d 		post请求
+
+	测试端口是否可以调用
+		telnet
